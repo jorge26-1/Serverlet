@@ -4,6 +4,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
+import base_datos.Conexion;
 import java.sql.*;
 
 @WebServlet("/RegistrarEnfermedadServlet")
@@ -19,10 +20,9 @@ public class RegistrarEnfermedadServlet extends HttpServlet {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3307/agricultura", "root", "")) {
+            try (Connection con = Conexion.obtenerConexion()) {
 
-                // Buscar el ID según sea huerto o corral
+                
                 String sqlBuscar = tipo.equals("huerto")
                         ? "SELECT id FROM huerto WHERE nombre = ?"
                         : "SELECT id FROM corral WHERE nombre = ?";
@@ -34,7 +34,7 @@ public class RegistrarEnfermedadServlet extends HttpServlet {
                 if (rs.next()) {
                     int idHuertoCorral = rs.getInt("id");
 
-                    // Insertar en enfermedad
+                    
                     PreparedStatement psInsertar = con.prepareStatement(
                             "INSERT INTO enfermedad(id_huerto_corral, nombre, fecha, descripcion) VALUES (?, ?, ?, ?)");
                     psInsertar.setInt(1, idHuertoCorral);
@@ -52,7 +52,7 @@ public class RegistrarEnfermedadServlet extends HttpServlet {
             request.setAttribute("error", "Error al registrar enfermedad: " + e.getMessage());
         }
 
-        // Redirigir al mismo formulario con mensaje
+        
         request.getRequestDispatcher("Formularios/registrarEnfermedad.jsp").forward(request, response);
     }
 }

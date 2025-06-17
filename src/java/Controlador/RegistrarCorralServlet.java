@@ -4,6 +4,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
+import base_datos.Conexion;
 import java.sql.*;
 
 @WebServlet("/RegistrarCorralServlet")
@@ -18,14 +19,14 @@ public class RegistrarCorralServlet extends HttpServlet {
             int capacidad = Integer.parseInt(capacidadStr);
 
             Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/agricultura", "root", "")) {
+            try (Connection con =  Conexion.obtenerConexion()){
                 PreparedStatement ps = con.prepareStatement("INSERT INTO corral(nombre, capacidad, tipo_animal) VALUES (?, ?, ?)");
                 ps.setString(1, nombre);
                 ps.setInt(2, capacidad);
                 ps.setString(3, tipoAnimal);
                 ps.executeUpdate();
 
-                // Agrega mensaje de éxito
+               
                 request.setAttribute("mensaje", "Corral registrado correctamente.");
             }
         } catch (NumberFormatException e) {
@@ -34,7 +35,7 @@ public class RegistrarCorralServlet extends HttpServlet {
             request.setAttribute("error", "Error al registrar: " + e.getMessage());
         }
 
-        // Redirige a la misma página mostrando mensaje
+        
         request.getRequestDispatcher("Formularios/registrarCorral.jsp").forward(request, response);
     }
 }

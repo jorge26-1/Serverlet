@@ -1,5 +1,6 @@
 package controlador;
 
+import base_datos.Conexion;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -21,7 +22,7 @@ public class RegistrarHumedadServlet extends HttpServlet {
             double nivel = Double.parseDouble(nivelStr);
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/agricultura", "root", "")) {
+            try  (Connection con = Conexion.obtenerConexion()) { 
 
                 // Buscar el ID del huerto o corral
                 String tabla = tipo.equals("corral") ? "corral" : "huerto";

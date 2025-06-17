@@ -1,2 +1,1 @@
 controlador.RegistrarHuertoServlet
-controlador.RegistrarHumedadServlet

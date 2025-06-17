@@ -1,2 +1,1 @@
-RegistrarHumedadServlet
 controlador.RegistrarHumedadServlet
