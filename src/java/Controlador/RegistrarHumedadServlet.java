@@ -12,7 +12,7 @@ public class RegistrarHumedadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String tipo = request.getParameter("tipo"); // "huerto" o "corral"
+        String tipo = request.getParameter("tipo");
         String nombre = request.getParameter("nombre");
         String fecha = request.getParameter("fecha");
         String nivelStr = request.getParameter("nivel_humedad");
