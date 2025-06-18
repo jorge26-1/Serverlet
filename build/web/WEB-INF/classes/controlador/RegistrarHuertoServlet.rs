@@ -1,2 +1,0 @@
-controlador.RegistrarHuertoServlet
-controlador.RegistrarHumedadServlet
