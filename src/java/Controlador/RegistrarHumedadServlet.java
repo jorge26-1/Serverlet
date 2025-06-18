@@ -31,6 +31,7 @@ public class RegistrarHumedadServlet extends HttpServlet {
                 ResultSet rs = psBuscar.executeQuery();
 
                 if (rs.next()) {
+                    System.out.println("hola");
                     int idHuertoCorral = rs.getInt("id");
 
                     // Insertar en tabla humedad
